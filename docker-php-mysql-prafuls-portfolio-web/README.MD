@@ -1,0 +1,2 @@
+This project contains php sourcode for web application which is personal portfolio application. It also contains some db files db.php which has db parameters working along with docker containers. This is tested application that it works through frontend and backend containers.
+it has to create a database and table fron the myswl container and then from frontned contact form the data has to insert and it works,
