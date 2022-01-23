@@ -1,41 +1,26 @@
 
-<?php include "../inc/dbinfo.inc"; ?>
+<?php  ?>
 <html>
 <body>
-<h1>emp</h1>
+<h1>EMP DOCKER TEST 1</h1>
 <?php
 
+# This is working solution with Docker cotainer
 
-#define('DB_SERVER', 'mysql');
-#define('DB_USERNAME', 'root');
-#define('DB_PASSWORD', 'secret');
-#define('DB_DATABASE', 'empdb');
-
-    $MYSQL_DBHOST='mysql';
-    $MYSQL_DBUSER='root';
-    $MYSQL_DBPASS='secret';
-    $MYSQL_DBNAME = "empdb";
-    $conn=mysqli_connect($MYSQL_DBHOST,$MYSQL_DBUSER,$MYSQL_DBPASS,"$MYSQL_DBNAME");
-      if(!$conn){
-          die('Could not Connect MySql Server:' .mysqli_error());
-        }
-
-
-#'DB_SERVER'= $MYSQL_DBHOST
-#'DB_USERNAME'=$MYSQL_DBUSER
-#'DB_PASSWORD'=$MYSQL_DBPASS
-#'DB_DATABASE'=$MYSQL_DBNAME
-
+$MYSQL_DBHOST='mysql';
+$MYSQL_DBUSER='root';
+$MYSQL_DBPASS='secret';
+$MYSQL_DBNAME="empdb";
 
   /* Connect to MySQL and select the database. */
-  $connection = mysqli_connect(MYSQL_DBHOST, MYSQL_DBUSER, MYSQL_DBPASS);
+  $connection = mysqli_connect($MYSQL_DBHOST, $MYSQL_DBUSER, $MYSQL_DBPASS);
 
   if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
 
-  $database = mysqli_select_db($connection, MYSQL_DBNAME);
+  $database = mysqli_select_db($connection, $MYSQL_DBNAME);
 
   /* Ensure that the EMPLOYEES table exists. */
-  VerifyEmployeesTable($connection, MYSQL_DBNAME);
+  VerifyEmployeesTable($connection, $MYSQL_DBNAME);
 
   /* If input fields are populated, add a row to the EMPLOYEES table. */
   $employee_name = htmlentities($_POST['NAME']);
