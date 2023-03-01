@@ -1,0 +1,62 @@
+version: "3.9"
+    
+services:
+  # Database
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DBNAME: empdb
+      MYSQL_PASSWORD: secret
+    container_name: db-mysql  
+    networks:
+      - prpweb
+
+  # phpmyadmin
+
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin:4.7
+    restart: always
+    ports: 
+     - '8081:80'
+    environment:
+      - PMA_HOST=db-mysql
+      - PMA_PORT= 3306
+      - PMA_ARBITRARY=1 
+    links:
+     - db
+    networks:
+      - prpweb
+    volumes:
+      - /sessions
+    container_name: prp-phpmyadmin
+
+  # Webserver
+
+  webserver:
+    depends_on:
+      - db
+    image: praful2018/phpweb:v1
+    volumes:
+      - phpweb_data:/var/www/html
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      MYSQL_HOST: db-mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DBNAME: empdb
+    networks:
+      - prpweb  
+networks:
+    prpweb:
+  
+volumes:
+  db_data: {}
+  phpweb_data: {}
